@@ -93,10 +93,10 @@ def transducer_gain(S, Gams, Gaml):
     return GtdB
 
 
-S11 = phasor_to_rectangular(0.5105, 105.7)
-S12 = phasor_to_rectangular(0.1314, 19.9)
-S21 = phasor_to_rectangular(3.454, 19.3)
-S22 = phasor_to_rectangular(0.0930, 107.5)
+S11 = phasor_to_rectangular(0.7370, 96.0)
+S12 = phasor_to_rectangular(0.1258, 20.7)
+S21 = phasor_to_rectangular(1.487, 12.1)
+S22 = phasor_to_rectangular(0.0916, 70.7)
 print("S Parameters S11:", S11, ", S12:", S12, ", S21:", S21, ", S22:", S22)
 print("S22 conjugate: ", conj(S22))
 
