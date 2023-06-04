@@ -1,6 +1,29 @@
 from numpy import *
 
 
+# Convert from phasor to rectangular
+def phasor_to_rectangular(magnitude, angle):
+    '''
+    Converts a phasor to rectangular form
+
+    Parameters
+    ----------
+    :param magnitude: Magnitude of phasor (float)
+    :param angle: Angle of phasor (float)
+    :return: Rectangular form of phasor (complex)
+
+    Example
+    -------
+    magnitude = 1
+    angle = 45
+    rectangular = phasor_to_rectangular(magnitude, angle)
+    rectangular
+    (0.7071067811865476+0.7071067811865475j)
+    '''
+    rectangular = magnitude * exp(1j * angle * pi / 180)
+    return rectangular
+
+
 def convert_gamma_to_z(gamma, z0=50):
     '''
     Converts reflection coefficient Γ to impedance Z
@@ -70,13 +93,13 @@ def transducer_gain(S,Gams, Gaml):
     return GtdB
 
 
-S_parameters = matrix([[(-0.1321) + 0.4605j, 3.4420 + 1.3075j], [0.1174 + 0.0477j, (-0.0044568) + 0.04629j]])
-S11 = S_parameters[0, 0]
-S12= S_parameters[0, 1]
-S21= S_parameters[1, 0]
-S22= S_parameters[1, 1]
-
+S11 = phasor_to_rectangular(0.4791, 106.0)
+S12= phasor_to_rectangular(3.682, 20.8)
+S21= phasor_to_rectangular(0.1267, 22.1)
+S22= phasor_to_rectangular(0.0465, 95.5)
+print("S Parameters S11:", S11, ", S12:", S12, ", S21:", S21, ", S22:", S22)
 print("S22 conjugate: ", conj(S22))
+
 delta = (S11 * S22) - (S12 * S21)
 C1 = S11 - delta * conj(S22)
 C2 = S22 - delta * conj(S11)
