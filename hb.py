@@ -45,7 +45,7 @@ def convert_gamma_to_z(gamma, z0=50):
     return z
 
 
-def transducer_gain(S,Gams, Gaml):
+def transducer_gain(S, Gams, Gaml):
     '''
     Calculates the transducer gain for a given S-Matrix
     and Γ_s and Γ_l
@@ -93,32 +93,32 @@ def transducer_gain(S,Gams, Gaml):
     return GtdB
 
 
-S11 = phasor_to_rectangular(0.4791, 106.0)
-S12= phasor_to_rectangular(3.682, 20.8)
-S21= phasor_to_rectangular(0.1267, 22.1)
-S22= phasor_to_rectangular(0.0465, 95.5)
+S11 = phasor_to_rectangular(0.4918, 108.6)
+S12 = phasor_to_rectangular(0.128, 18.5)
+S21 = phasor_to_rectangular(3.565, 20.9)
+S22 = phasor_to_rectangular(0.548, 113.6)
 print("S Parameters S11:", S11, ", S12:", S12, ", S21:", S21, ", S22:", S22)
 print("S22 conjugate: ", conj(S22))
 
 delta = (S11 * S22) - (S12 * S21)
 C1 = S11 - delta * conj(S22)
 C2 = S22 - delta * conj(S11)
-B1 = 1 + abs(S11)**2 - abs(S22)**2 - abs(delta)**2
-B2 = 1 + abs(S22)**2 - abs(S11)**2 - abs(delta)**2
+B1 = 1 + abs(S11) ** 2 - abs(S22) ** 2 - abs(delta) ** 2
+B2 = 1 + abs(S22) ** 2 - abs(S11) ** 2 - abs(delta) ** 2
 
-Gam_s_pozitif = (B1 + sqrt(B1**2 - 4 * abs(C1)**2)) / (2*C1)
+Gam_s_pozitif = (B1 + sqrt(B1 ** 2 - 4 * abs(C1) ** 2)) / (2 * C1)
 Gam_s_pozitif_impedance = convert_gamma_to_z(Gam_s_pozitif)
 
-Gam_s_negatif = (B1 - sqrt(B1**2 - 4 * abs(C1)**2)) / (2*C1)
+Gam_s_negatif = (B1 - sqrt(B1 ** 2 - 4 * abs(C1) ** 2)) / (2 * C1)
 Gam_s_negatif_impedance = convert_gamma_to_z(Gam_s_negatif)
 
-Gam_l_pozitif = (B2 + sqrt(B2**2 - 4 * abs(C2)**2)) / (2*C2)
+Gam_l_pozitif = (B2 + sqrt(B2 ** 2 - 4 * abs(C2) ** 2)) / (2 * C2)
 Gam_l_pozitif_impedance = convert_gamma_to_z(Gam_l_pozitif)
 
-Gam_l_negatif = (B2 - sqrt(B2**2 - 4 * abs(C2)**2)) / (2*C2)
+Gam_l_negatif = (B2 - sqrt(B2 ** 2 - 4 * abs(C2) ** 2)) / (2 * C2)
 Gam_l_negative_impedance = convert_gamma_to_z(Gam_l_negatif)
 
-k = (1-abs(S11)**2-abs(S22)**2+abs(delta)**2)/(2*abs(S12*S21))
+k = (1 - abs(S11) ** 2 - abs(S22) ** 2 + abs(delta) ** 2) / (2 * abs(S12 * S21))
 print("K: ", k)
 print("Gam_s positive: ", Gam_s_pozitif, "| Impedance: ", Gam_s_pozitif_impedance)
 print("Gam_s negative: ", Gam_s_negatif, "| Impedance: ", Gam_s_negatif_impedance)
@@ -126,6 +126,6 @@ print("Gam_l positive: ", Gam_l_pozitif, "| Impedance: ", Gam_l_pozitif_impedanc
 print("Gam_l negative: ", Gam_l_negatif, "| Impedance: ", Gam_l_negative_impedance)
 print("-------------")
 
-S = matrix([[S11,S12],[S21,S22]])
+S = matrix([[S11, S12], [S21, S22]])
 
 transducer_gain(S, Gam_s_negatif, Gam_l_negatif)
